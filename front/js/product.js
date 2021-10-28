@@ -43,40 +43,47 @@ PlaceColors.appendChild(option);                             // ajoute la balise
 
 const button = document.querySelector('#addToCart');
 button.addEventListener("click", function() {
-  const ColorChoisie = document.querySelector('#colors  ').value;    // Recupere la couleur Choisie
-  const quantite =document.querySelector('#quantity').value;         // Recupere la quantitée Voulue 
-
+  let ProduitsChoisie ={    
+      idChoisie: id,
+     ColorChoisie : document.querySelector('#colors  ').value,    // Recupere la couleur Choisie
+      quantite :parseInt(document.querySelector('#quantity').value),         // Recupere la quantitée Voulue 
+  }
 
 let ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produit"));
 ProduitInLocalStorage = [];
 
 if (localStorage.getItem("Produits")){                                        // si il y a deja un objet dans le localStorage 
-  ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));       // on recupere ce quil y a deja pour l'ajouter à ProduitInLocalStorage 
-  ProduitInLocalStorage.push(id, ColorChoisie, quantite ) ;                   // On envoie les elements voulu dans le localStorage 
-  localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));     // on transforme en format Json 
-  console.log(ProduitInLocalStorage);
-
-  const ProduitsDejaPresent = ProduitInLocalStorage.filter(Produits = ColorChoisie == ColorChoisie && id == id );
+  ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));       // on recupere ce quil y a deja pour l'ajouter à ProduitInLocalStorage  transformé JS
  
-if (ProduitsDejaPresent ){
-  let Total = quantite + Produits.quantite;
-  console;log(Total)
-
-for (Produit of ProduitInLocalStorage){
-  if (Produit.ColorChoisie === Produit.ColorChoisie && Produit.id === Produit.id){
-      Product.quantite = total;
-      console.log(ProduitInLocalStorage);
-  }}}
-
-}else{
+  const IdDejaPresent = ProduitInLocalStorage.filter(Produits =>   ProduitsChoisie.idChoisie === Produits.id );
+  const ColorDejaPresente = ProduitInLocalStorage.filter(Produits =>  ProduitsChoisie.ColorChoisie === Produits.ColorChoisie);
   
-  ProduitInLocalStorage.push(id, ColorChoisie, quantite ) ;                        // On envoie les elements voulu dans le localStorage 
+if (IdDejaPresent && ColorDejaPresente){
+  let Total =  ProduitInLocalStorage[0].quantite + ProduitsChoisie.quantite;
+  console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
+for (Produits of ProduitInLocalStorage){
+  if (Produits.ColorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
+          Produits.quantite = Total;
+      console.log(ProduitInLocalStorage);     
+  }
+}
+  
+ } else{
+    ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
+    localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+     }
+  
+ 
+  
+}else{  
+  ProduitInLocalStorage.push(ProduitsChoisie ) ;                        // On envoie les elements voulu dans le localStorage 
   localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));         // on transforme en format Json 
   console.log(ProduitInLocalStorage);
 }
 
-});
-console.log(button);
+
+})
+
 
 
      
