@@ -6,7 +6,7 @@ for (let sofa of ProduitsValide){
 
 
 let ProduitDejaPresent = (sofa.idChoisie == ProduitsValide.idChoisie & sofa.ColorChoisie == ProduitsValide.ColorChoisie);
-let TotalElementPanier = (sofa.quantite+this.quantite);
+let TotalElementPanier = (sofa.quantite+ProduitsValide.quantite);
 
 if(ProduitDejaPresent) {
  document.getElementsByName("itemQuantity").innerHTML =` 
