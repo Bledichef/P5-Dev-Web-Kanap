@@ -1,7 +1,7 @@
 let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) || [];
 
 
-
+////////////////////////////// Visibilité des elements dans le panier 
 for (let sofa of ProduitsValide){
 
 
@@ -73,4 +73,35 @@ for (let sofa of ProduitsValide){
 if(arrayPrice.length === 0){
     totalPriceQuantity = "";
     document.getElementById("totalPrice").innerHTML = totalPriceQuantity;
+}
+
+
+//////////////////////////////////////// DELETE ARTICLE
+ ProduitsValide => {
+  const tagDelete = document.querySelectorAll(".deleteItem"); 
+  
+  tagDelete.forEach(tag => {
+      const tagClosest = tag.closest("article");
+      const id = tagClosest.dataset.id; 
+      const article = tagClosest;
+      const color = tagClosest.dataset.color;
+  
+      tag.addEventListener('click', event => {
+          event.preventDefault();
+          ProduitsValide.forEach(sofa => {
+              if (sofa.idChoisie === id && sofa.ColorChoisie === color){ 
+                  let index = ProduitsValide.indexOf(sofa) // récupération index du canapé
+                  if(confirm("Voulez vous supprimer cet article de votre panier?")){
+                      article.remove(); // supprime du DOM
+                      productInStorage.splice(index, 1); // on retire ce canapé du panier
+                  }
+              }
+          })
+
+      localStorage.setItem("products", JSON.stringify(productInStorage)); 
+
+      displayTotalPrice(ProduitsValide);
+      displayTotalQuantity(ProduitsValide);        
+      })
+  })
 }
