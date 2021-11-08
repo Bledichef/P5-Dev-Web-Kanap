@@ -1,4 +1,4 @@
-let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) || [];
+let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) ;
 
 
 ////////////////////////////// Visibilité des elements dans le panier 
@@ -9,7 +9,7 @@ let ProduitDejaPresent = (sofa.idChoisie == ProduitsValide.idChoisie & sofa.Colo
 let TotalElementPanier = (sofa.quantite+ProduitsValide.quantite);
 
 if(ProduitDejaPresent) {
- document.getElementsByName("itemQuantity").innerHTML =` 
+ document.getElementsByName("itemQuantity").innerHTML +=` 
  <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${TotalElementPanier}"`
 }
   
@@ -42,6 +42,47 @@ else{
     console.log("Les articles dans le  panier : ", ProduitsValide);
 }
 }
+const test2 = document.getElementById("cart__items");
+if (ProduitsValide ===null || ProduitsValide ==0) {
+  document.getElementById("cart__items").innerHTML +=`
+  <div class="cart__item__img">
+  <p> Votre panier est vide </p>
+  </div>`
+  
+}else { 
+ 
+  for (i=0; i < ProduitsValide.length; i++  ){
+    
+   // document.getElementById("cart__items").innerHTML +=
+    
+   const test =  ` 
+    
+
+      <article class="cart__item" data-id=${sofa[i].idChoisie}>
+    <div class="cart__item__img">
+      <img src=${sofa[i].imageChoisie} alt=${sofa[i].AltTxtChoisie}>
+    </div>
+    <div class="cart__item__content">
+      <div class="cart__item__content__titlePrice">
+        <h2>${sofa[i].NomChoisie}</h2>
+        <p>${sofa[i].PrixChoisie} €</p>
+      </div>
+      <div class="cart__item__content__settings">
+      <p>Couleur : ${sofa[i].ColorChoisie}</p>
+        <div class="cart__item__content__settings__quantity">
+          <p>Qté : ${sofa[i].quantite} </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${sofa[i].quantite}">
+        </div>
+        <div class="cart__item__content__settings__delete">
+          <p class="deleteItem">Supprimer</p>
+        </div>
+      </div>
+    </div>
+  </article> 
+    `;
+    test2.innerHTML=test;
+  }
+} 
 
                                          // qUANTITE TOTAL DANS LE PANIER 
 const arrayQuantity = [];
