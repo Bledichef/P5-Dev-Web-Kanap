@@ -43,3 +43,34 @@ else{
 }
 }
 
+                                         // qUANTITE TOTAL DANS LE PANIER 
+const arrayQuantity = [];
+for (let sofa of ProduitsValide){
+    arrayQuantity.push(sofa.quantite)
+    const reducer = (previousValue, currentValue) => previousValue + currentValue;
+    const totalQuantity = arrayQuantity.reduce(reducer)
+    document.getElementById("totalQuantity").innerHTML = totalQuantity;
+    
+}
+
+if(arrayQuantity.length === 0){
+    document.querySelector("h1").innerHTML = "Le panier est vide";
+    totalQuantity = "";
+    document.getElementById("totalQuantity").innerHTML = totalQuantity;
+}
+
+///////////////////////////////////// Prix total
+let totalPriceQuantity = "";
+let arrayPrice = [];
+
+for (let sofa of ProduitsValide){ 
+    totalPriceQuantity = sofa.PrixChoisie * sofa.quantite
+    arrayPrice.push(totalPriceQuantity)
+    const reducer = (previousValue, currentValue) => previousValue + currentValue;
+    const totalPrice = arrayPrice.reduce(reducer);
+    document.getElementById("totalPrice").innerHTML = totalPrice
+}
+if(arrayPrice.length === 0){
+    totalPriceQuantity = "";
+    document.getElementById("totalPrice").innerHTML = totalPriceQuantity;
+}
