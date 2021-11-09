@@ -65,27 +65,29 @@ button.addEventListener("click", function() {
 let ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produit"));
 ProduitInLocalStorage = [];
 
-if (localStorage.getItem("Produits")){                                        // si il y a deja un objet dans le localStorage 
+ if (localStorage.getItem("Produits")){                                        // si il y a deja un objet dans le localStorage 
   ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));       // on recupere ce quil y a deja pour l'ajouter à ProduitInLocalStorage  transformé JS
-
   const IdDejaPresent = ProduitInLocalStorage.filter(Produits =>   ProduitsChoisie.idChoisie === Produits.id );
   const ColorDejaPresente = ProduitInLocalStorage.filter(Produits =>  ProduitsChoisie.ColorChoisie === Produits.ColorChoisie);
   
-if (IdDejaPresent.length && ColorDejaPresente.length){
-  let Total =  ProduitInLocalStorage[0].quantite + ProduitsChoisie.quantite;
-  console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
-for (let Produits of ProduitInLocalStorage){
-  if (Produits.ColorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
+    if (IdDejaPresent & ColorDejaPresente){
+      let Total =  ProduitInLocalStorage.quantite + ProduitsChoisie.quantite;
+        console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
+        for (let Produits of ProduitInLocalStorage){
+         if (Produits.ColorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
+    
           Produits.quantite = Total;
-      console.log(ProduitInLocalStorage);           
+      console.log(ProduitInLocalStorage);     
+      localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+      ProduitInLocalStorage.push(ProduitsChoisie ) ;       
   }
 }
-    localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
-  ProduitInLocalStorage.push(ProduitsChoisie ) ; 
+
  } else{
     ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
+ }
     localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
-     }
+   
   
  
   
@@ -94,7 +96,7 @@ for (let Produits of ProduitInLocalStorage){
   localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));         // on transforme en format Json 
   console.log(ProduitInLocalStorage);
 }
-localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+//localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
 
 })
   })

@@ -1,8 +1,8 @@
 let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) ;
-
+  
 
 ////////////////////////////// Visibilité des elements dans le panier 
-for (let sofa of ProduitsValide){
+/*for (let sofa of ProduitsValide){
 
 
 let ProduitDejaPresent = (sofa.idChoisie == ProduitsValide.idChoisie & sofa.ColorChoisie == ProduitsValide.ColorChoisie);
@@ -41,37 +41,41 @@ else{
     `
     console.log("Les articles dans le  panier : ", ProduitsValide);
 }
-}
-const test2 = document.getElementById("cart__items");
+}*/
+
+
+
 if (ProduitsValide ===null || ProduitsValide ==0) {
   document.getElementById("cart__items").innerHTML +=`
   <div class="cart__item__img">
   <p> Votre panier est vide </p>
   </div>`
-  
+
+
 }else { 
- 
+  
+
+   
   for (i=0; i < ProduitsValide.length; i++  ){
-    
-   // document.getElementById("cart__items").innerHTML +=
-    
-   const test =  ` 
+  
+   document.getElementById("cart__items").innerHTML +=`    
+  
     
 
-      <article class="cart__item" data-id=${sofa[i].idChoisie}>
+      <article class="cart__item" data-id=${ProduitsValide[i].idChoisie}>
     <div class="cart__item__img">
-      <img src=${sofa[i].imageChoisie} alt=${sofa[i].AltTxtChoisie}>
+      <img src=${ProduitsValide[i].imageChoisie} alt=${ProduitsValide[i].AltTxtChoisie}>
     </div>
     <div class="cart__item__content">
       <div class="cart__item__content__titlePrice">
-        <h2>${sofa[i].NomChoisie}</h2>
-        <p>${sofa[i].PrixChoisie} €</p>
+        <h2>${ProduitsValide[i].NomChoisie}</h2>
+        <p>${ProduitsValide[i].PrixChoisie} €</p>
       </div>
       <div class="cart__item__content__settings">
-      <p>Couleur : ${sofa[i].ColorChoisie}</p>
+      <p>Couleur : ${ProduitsValide[i].ColorChoisie}</p>
         <div class="cart__item__content__settings__quantity">
-          <p>Qté : ${sofa[i].quantite} </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${sofa[i].quantite}">
+          <p>Qté : ${ProduitsValide[i].quantite} </p>
+          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${ProduitsValide[i].quantite}">
         </div>
         <div class="cart__item__content__settings__delete">
           <p class="deleteItem">Supprimer</p>
@@ -79,10 +83,12 @@ if (ProduitsValide ===null || ProduitsValide ==0) {
       </div>
     </div>
   </article> 
-    `;
-    test2.innerHTML=test;
+    `
+
   }
-} 
+  
+
+
 
                                          // qUANTITE TOTAL DANS LE PANIER 
 const arrayQuantity = [];
@@ -144,5 +150,4 @@ if(arrayPrice.length === 0){
       displayTotalPrice(ProduitsValide);
       displayTotalQuantity(ProduitsValide);        
       })
-  })
-}
+  })}}
