@@ -6,8 +6,8 @@
 
 const str = window.location.href;
 var url = new URL(str);
-var id = url.searchParams.get("id");               // Recuperer l'Id du canapé 
-console.log(id);
+ id = url.searchParams.get("id");               // Recuperer l'Id du canapé 
+
 let UrlProduct = `http://localhost:3000/api/products/${id}`;   
 console.log(UrlProduct);
 fetch (UrlProduct)                                             // Recevoir les données du canapé 
@@ -52,54 +52,73 @@ PlaceColors.appendChild(option);                             // ajoute la balise
 
 const button = document.querySelector('#addToCart');
 button.addEventListener("click", function() {
+  console.log(data.name)
   let ProduitsChoisie =   {  
     imageChoisie: data.imageUrl,
     NomChoisie: data.name,
     PrixChoisie : data.price,
     AltTxtChoisie: data.altTxt,
-      idChoisie: id,
-     ColorChoisie : document.querySelector('#colors  ').value,    // Recupere la couleur Choisie
+      idChoisie: parseInt(id),
+     ColorChoisie : document.querySelector('#colors').value,    // Recupere la couleur Choisie
       quantite :parseInt(document.querySelector('#quantity').value),         // Recupere la quantitée Voulue 
   }
-
-let ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produit"));
-ProduitInLocalStorage = [];
-
- if (localStorage.getItem("Produits")){                                        // si il y a deja un objet dans le localStorage 
-  ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));       // on recupere ce quil y a deja pour l'ajouter à ProduitInLocalStorage  transformé JS
-  const IdDejaPresent = ProduitInLocalStorage.filter(Produits =>   ProduitsChoisie.idChoisie === Produits.id );
-  const ColorDejaPresente = ProduitInLocalStorage.filter(Produits =>  ProduitsChoisie.ColorChoisie === Produits.ColorChoisie);
   
-    if (IdDejaPresent & ColorDejaPresente){
-      let Total =  ProduitInLocalStorage.quantite + ProduitsChoisie.quantite;
-        console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
-        for (let Produits of ProduitInLocalStorage){
-         if (Produits.ColorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
+  console.log(id);
+
+//let ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produit")) || [];
+let ProduitInLocalStorage = [];
+
+console.log(ProduitInLocalStorage)
+if (localStorage.getItem("Produits")) {
+// if (ProduitInLocalStorage.length >= 0){                                        // si il y a deja un objet dans le localStorage 
+ ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));
+ // ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));       // on recupere ce quil y a deja pour l'ajouter à ProduitInLocalStorage  transformé JS
+// let DejaPresent = ProduitInLocalStorage.find(idChoisie => idChoisie == id ) && ProduitInLocalStorage.find(ProduitInLocalStorage => ProduitsChoisie.ColorChoisie === ProduitInLocalStorage.ColorChoisie);
+const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie === ProduitsChoisie.ColorChoisie && product.idChoisie === ProduitsChoisie.idChoisie)
+  console.log(DejaPresent)
+  console.log(id)
+  console.log(ProduitsChoisie.ColorChoisie)
     
-          Produits.quantite = Total;
-      console.log(ProduitInLocalStorage);     
-      localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
-      ProduitInLocalStorage.push(ProduitsChoisie ) ;       
-  }
-}
-
- } else{
-    ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
- }
-    localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
-   
-  
+  if (DejaPresent.length){
+      let Total = DejaPresent[0].quantite + ProduitsChoisie.quantite;
+      console.log(ProduitsChoisie.quantite)
+      
+       console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
+      
  
-  
-}else{  
-  ProduitInLocalStorage.push(ProduitsChoisie ) ;                        // On envoie les elements voulu dans le localStorage 
+   ProduitInLocalStorage[0].quantite = Total;
+ 
+
+
+ 
+      /*    for (let Produit of ProduitInLocalStorage){
+            if (Produit.colorChoice === ProduitsChoisie.ColorChoisie && Produit.idChoice === ProduitsChoisie.idChoisie){
+         Produit.quantite = Total;
+      console.log(ProduitInLocalStorage);    
+     // ProduitInLocalStorage.push(productChoisie ) ;        
+    //  localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+         
+  }
+ }
+*/
+     } else{
+      ProduitInLocalStorage.push(ProduitsChoisie);
+    /*  ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
+     localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));*/
+  }
+  localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+ 
+ } 
+else{  
+  console.log(ProduitsChoisie)
+  ProduitInLocalStorage.push(ProduitsChoisie) ;                        // On envoie les elements voulu dans le localStorage 
   localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));         // on transforme en format Json 
   console.log(ProduitInLocalStorage);
 }
 //localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+console.log("produit ajouté => ",ProduitsChoisie)
 
-})
   })
 
-
+  })
      
