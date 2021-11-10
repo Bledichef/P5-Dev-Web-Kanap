@@ -78,29 +78,30 @@ const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie
   console.log(DejaPresent)
   console.log(id)
   console.log(ProduitsChoisie.ColorChoisie)
-    
+   console.log(ProduitInLocalStorage) 
   if (DejaPresent.length){
-      let Total = DejaPresent[0].quantite + ProduitsChoisie.quantite;
-      console.log(ProduitsChoisie.quantite)
+      let Total = DejaPresent.quantite + ProduitsChoisie.quantite;
+      console.log(DejaPresent.quantite);
       
        console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
       
  
-   ProduitInLocalStorage[0].quantite = Total;
+   //ProduitInLocalStorage[i].quantite = Total;
  
 
 
+
  
-      /*    for (let Produit of ProduitInLocalStorage){
+          for (let Produit of ProduitInLocalStorage){
             if (Produit.colorChoice === ProduitsChoisie.ColorChoisie && Produit.idChoice === ProduitsChoisie.idChoisie){
-         Produit.quantite = Total;
+        this.quantite = Total;
       console.log(ProduitInLocalStorage);    
      // ProduitInLocalStorage.push(productChoisie ) ;        
     //  localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
          
   }
  }
-*/
+
      } else{
       ProduitInLocalStorage.push(ProduitsChoisie);
     /*  ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
