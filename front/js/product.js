@@ -84,11 +84,12 @@ const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie
       console.log(DejaPresent[0].quantite);
       
        console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
-      
+      console.log(DejaPresent[0])
+  const IndexDejaPresent = ProduitInLocalStorage.indexOf(DejaPresent[0])
+  console.log(IndexDejaPresent)
+   ProduitInLocalStorage[IndexDejaPresent].quantite = Total;
  
-   //ProduitInLocalStorage[0].quantite = Total;
- 
-          for (let Produits of ProduitInLocalStorage){
+       /*   for (let Produits of ProduitInLocalStorage){
             if (Produits.colorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
         Produits.quantite = Total;
       console.log(Produit);    
@@ -96,7 +97,7 @@ const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie
      // localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
          
   }
- }
+ }*/
 
      } else{
       ProduitInLocalStorage.push(ProduitsChoisie);
