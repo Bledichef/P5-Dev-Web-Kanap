@@ -86,7 +86,7 @@ const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie
        console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
       
  
-   //ProduitInLocalStorage[i].quantite = Total;
+   //ProduitInLocalStorage[0].quantite = Total;
  
           for (let Produits of ProduitInLocalStorage){
             if (Produits.colorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
