@@ -55,7 +55,7 @@ if (ProduitsValide ===null || ProduitsValide ==0) {
                                          // QUANTITE TOTAL DANS LE PANIER 
 
        
-   
+   function quantiteArticleTotal(ProduitsValide){
   
   const arrayQuantity = [];
    for (let sofa of ProduitsValide){
@@ -71,7 +71,7 @@ if(arrayQuantity.length === 0){
     totalQuantity = "";
     document.getElementById("totalQuantity").innerHTML = totalQuantity;
 }
- 
+}
 ///////////////////////////////////// Prix total
 
 function prixToltal(ProduitsValide) {
@@ -92,7 +92,7 @@ if(arrayPrice.length === 0){
 }
 
 //////////////////////////////////////// DELETE ARTICLE
- /*
+ 
   const Delete = document.querySelectorAll(".deleteItem"); 
   
   Delete.forEach(tag => {
@@ -111,23 +111,26 @@ if(arrayPrice.length === 0){
             console.log(sofa)
             console.log(sofa.idChoisie)
             console.log(sofa.ColorChoisie)
-              if (sofa.idChoisie === id && sofa.ColorChoisie === color){ 
+            console.log(id)
+            console.log(color)
+              if (sofa.idChoisie == id && sofa.ColorChoisie == color){ 
                   let index = ProduitsValide.indexOf(sofa) // récupération index du canapé
                   if(confirm("Voulez vous supprimer cet article de votre panier?")){
+                    console.log(index)
                       article.remove(); // supprime du DOM
-                      ProduitsValide.splice(index, 0); // on retire ce canapé du panier
+                      ProduitsValide.splice(index, 1); // on retire ce canapé du panier
                   }
               }
           })
 
 
       localStorage.setItem("Produits", JSON.stringify(ProduitsValide)); 
-
-     // displayTotalPrice(ProduitsValide);
-      //displayTotalQuantity(ProduitsValide);        
+      prixToltal(ProduitsValide)
+      quantiteArticleTotal(ProduitsValide)
+       
         })
   })
-*/
+
 
 
 
@@ -148,7 +151,7 @@ console.log(id)
         newQuantity = Number(tag.value); // la nouvelle quantité est la value de la balise quantité
         ProduitsValide.forEach(sofa => { // Pour chaque canapé mis ds le panier, si l'id est le même que celui récupéré -> on cible le canapé 
             
-            if (sofa.idChoisie === id  && sofa.ColorChoisie === color){ 
+            if (sofa.idChoisie == id  && sofa.ColorChoisie == color){ 
                 sofa.quantite = newQuantity // la quantité des produits du panier se met à jour et devient égale à la nouvelle quantité
                 
             }
@@ -163,12 +166,12 @@ console.log(id)
 
     localStorage.setItem("Produits", JSON.stringify(ProduitsValide)); 
     prixToltal(ProduitsValide)
- 
+    quantiteArticleTotal(ProduitsValide)
     })
 })
 }
 
 
 prixToltal(ProduitsValide)
-
+quantiteArticleTotal(ProduitsValide)
 
