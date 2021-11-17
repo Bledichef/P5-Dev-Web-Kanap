@@ -172,6 +172,121 @@ console.log(id)
 }
 
 
+
+                                        //  CONDITIONS FORMULAIRE
+
+const firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
+const lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
+const addressErrorMsg = document.getElementById("addressErrorMsg");
+const cityErrorMsg = document.getElementById("cityErrorMsg");
+const emailErrorMsg = document.getElementById("emailErrorMsg");                                     
+const buttonValidation = document.getElementById("order");
+
+
+let form1 = document.querySelector('#firstName')
+console.log(form1)
+form1.addEventListener('change', function(){
+  valideNom(this)
+});
+const valideNom = function(inputNom){
+  let RegExpNomCity = new RegExp (
+    /^[a-zA-ZÀ-ÿ_-]{2,60}$/
+  );
+
+let testNom = RegExpNomCity.test(inputNom.value);
+console.log(testNom)
+if (testNom){
+  firstNameErrorMsg.innerHTML = 'Prenom Valide' ;
+}
+else{
+  firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
+}
+};
+
+let form2 = document.querySelector('#lastName')
+console.log(form2)
+form2.addEventListener('change', function(){
+  valideNom1(this)
+});
+const valideNom1 = function(inputNom){
+  let RegExpNomCity = new RegExp (
+    /^[a-zA-ZÀ-ÿ_-]{2,60}$/
+  );
+
+let testNom1 = RegExpNomCity.test(inputNom.value);
+console.log(testNom1)
+if (testNom1){
+  lastNameErrorMsg.innerHTML = 'Nom Valide' ;
+}
+else{
+  lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
+}
+};
+
+let form3 = document.querySelector('#address')
+console.log(form3)
+form3.addEventListener('change', function(){
+  valideAddress(this)
+});
+const valideAddress = function(inputAddress){
+  let RegExpAddress = new RegExp (
+    /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/
+  );
+
+let testAddress = RegExpAddress.test(inputAddress.value);
+console.log(testAddress)
+if (testAddress){
+  addressErrorMsg.innerHTML = 'Addresse Valide' ;
+}
+else{
+  addressErrorMsg.innerHTML = 'Addresse non valide' ;
+}
+};
+
+let form4 = document.querySelector('#city')
+console.log(form4)
+form4.addEventListener('change', function(){
+  validecity(this)
+});
+const validecity = function(inputcity){
+  let RegExpAddress = new RegExp (
+    /^[a-zA-ZÀ-ÿ_-]{2,60}$/
+  );
+
+let testcity = RegExpAddress.test(inputcity.value);
+console.log(testcity)
+if (testcity){
+  cityErrorMsg.innerHTML = 'Ville Valide' ;
+}
+else{
+  cityErrorMsg.innerHTML = 'Ville non valide' ;
+}
+};
+
+let form = document.querySelector('#email')
+console.log(form)
+form.addEventListener('change', function(){
+  valideEmail(this)
+});
+const valideEmail = function(inputEmail){
+  let RegExpEmailValide = new RegExp (
+    '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-zA-Z]{2,3}$', 'g'
+    );  
+  let testEmail = RegExpEmailValide.test(inputEmail.value);
+console.log(testEmail)
+if (testEmail){
+  emailErrorMsg.innerHTML = 'Adresse Valide' ;
+}
+else{
+  emailErrorMsg.innerHTML = 'Adresse non Valide' ;
+}
+};
+
+
+
+
+
+
 prixToltal(ProduitsValide)
 quantiteArticleTotal(ProduitsValide)
 
