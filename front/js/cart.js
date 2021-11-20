@@ -182,6 +182,7 @@ const cityErrorMsg = document.getElementById("cityErrorMsg");
 const emailErrorMsg = document.getElementById("emailErrorMsg");                                     
 const buttonValidation = document.getElementById("order");
 
+                     // CONDITION PRENOM
 
 let form1 = document.querySelector('#firstName')
 console.log(form1)
@@ -202,6 +203,7 @@ else{
   firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
 }
 };
+                                      // CONDITION NOM 
 
 let form2 = document.querySelector('#lastName')
 console.log(form2)
@@ -222,6 +224,7 @@ else{
   lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
 }
 };
+                                               // CONDITION ADRESSE 
 
 let form3 = document.querySelector('#address')
 console.log(form3)
@@ -242,6 +245,7 @@ else{
   addressErrorMsg.innerHTML = 'Addresse non valide' ;
 }
 };
+                                 // CONDITION VILLE
 
 let form4 = document.querySelector('#city')
 console.log(form4)
@@ -262,6 +266,7 @@ else{
   cityErrorMsg.innerHTML = 'Ville non valide' ;
 }
 };
+                                                // CONDITION MAIL 
 
 let form = document.querySelector('#email')
 console.log(form)
@@ -282,11 +287,64 @@ else{
 }
 };
 
+console.log(valideNom)
+                                                             //   Envoi du formulaire à l'api
+  function sendForm(ProduitsValide, contact){
+    let products = [];
 
+    for (let sofa of ProduitsValide){
+        let productId = sofa.idChoice;
+        products.push(productId)
+    }
+ 
+    fetch("http://localhost:3000/api/products/order", {
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify({contact, products}), 
+    })
+    .then(response => response.json())
+    .then(data => {
+        window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
+    })
+    .catch(e => console.log("il y a une erreur sur la page cart de type :" + e));   
+}
+
+
+function validateForm(ProduitsValide){
+  const buttonValidate = document.getElementById("order");
+
+  buttonValidate.addEventListener('click', event => {
+    event.preventDefault();
+    prenom = document.querySelector('#firstName').value;
+    nom = document.querySelector('#lastName').value;
+    adresse = document.querySelector('#address').value;
+    ville = document.querySelector('#city').value;
+    mail = document.querySelector('#email').value;
+
+    const contact = {
+      firstName : prenom,
+      lastName : nom,
+      address : adresse,
+      city : ville,
+      email : mail,
+  }
+
+if (valideNom & valideNom1 & validecity & valideAddress & valideEmail == true && ProduitsValide.length<=1){
+  sendForm(ProduitsValide, contact)
+  console.log("commande ok")
+}else{
+  console.log("erreur sur le formulaire")
+  alert('verifier le formulaire, il comporte une ou plusieurs erreurs')
+}
+  
+}
+
+
+  )}
 
 
 
 
 prixToltal(ProduitsValide)
 quantiteArticleTotal(ProduitsValide)
-
+validateForm(ProduitsValide)
