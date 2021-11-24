@@ -183,7 +183,7 @@ const emailErrorMsg = document.getElementById("emailErrorMsg");
 const buttonValidation = document.getElementById("order");
 
                      // CONDITION PRENOM
-
+let verifPrenom = 0
 let form1 = document.querySelector('#firstName')
 console.log(form1)
 form1.addEventListener('change', function(){
@@ -197,14 +197,14 @@ const valideNom = function(inputNom){
 let testNom = RegExpNomCity.test(inputNom.value);
 console.log(testNom)
 if (testNom){
- 
+ verifPrenom = 1
 }
 else{
   firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
 }
 };
                                       // CONDITION NOM 
-
+let verifNom = 0
 let form2 = document.querySelector('#lastName')
 console.log(form2)
 form2.addEventListener('change', function(){
@@ -218,14 +218,14 @@ const valideNom1 = function(inputNom){
 let testNom1 = RegExpNomCity.test(inputNom.value);
 console.log(testNom1)
 if (testNom1){
-  
+  let verifNom = 1
 }
 else{
   lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
 }
 };
                                                // CONDITION ADRESSE 
-
+let verifAdresse = 0
 let form3 = document.querySelector('#address')
 console.log(form3)
 form3.addEventListener('change', function(){
@@ -239,14 +239,14 @@ const valideAddress = function(inputAddress){
 let testAddress = RegExpAddress.test(inputAddress.value);
 console.log(testAddress)
 if (testAddress){
-  
+  verifAdresse = 1
 }
 else{
   addressErrorMsg.innerHTML = 'Addresse non valide' ;
 }
 };
                                  // CONDITION VILLE
-
+let villeVerif = 0
 let form4 = document.querySelector('#city')
 console.log(form4)
 form4.addEventListener('change', function(){
@@ -260,14 +260,14 @@ const validecity = function(inputcity){
 let testcity = RegExpAddress.test(inputcity.value);
 console.log(testcity)
 if (testcity){
-  
+  villeVerif = 1
 }
 else{
   cityErrorMsg.innerHTML = 'Ville non valide' ;
 }
 };
                                                 // CONDITION MAIL 
-
+let emailVerif = 0
 let form = document.querySelector('#email')
 console.log(form)
 form.addEventListener('change', function(){
@@ -280,7 +280,7 @@ const valideEmail = function(inputEmail){
   let testEmail = RegExpEmailValide.test(inputEmail.value);
 console.log(testEmail)
 if (testEmail){
-  
+  emailVerif = 1
 }
 else{
   emailErrorMsg.innerHTML = 'Adresse non Valide' ;
@@ -332,9 +332,9 @@ else{
 console.log(lastNameErrorMsg)
 console.log(addressErrorMsg)
 console.log(cityErrorMsg)
-console.log(emailErrorMsg)
+console.log(emailVerif)
 
-if (valideAddress, valideEmail , valideNom, valideNom1, validecity = true && buttonValidation < 0 && ProduitsValide.length<=1){
+if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom =1)&& (verifPrenom = 1)&& ProduitsValide.length >= 1 ){
   sendForm(ProduitsValide, contact)
   console.log("commande ok")
 }else{
