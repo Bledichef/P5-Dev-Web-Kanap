@@ -293,7 +293,7 @@ else{
     let products = [];
 
     for (let sofa of ProduitsValide){
-        let productId = sofa.idChoice;
+        let productId = sofa.idChoisie;
         products.push(productId)
     }
  
