@@ -197,7 +197,7 @@ const valideNom = function(inputNom){
 let testNom = RegExpNomCity.test(inputNom.value);
 console.log(testNom)
 if (testNom){
-  firstNameErrorMsg.innerHTML = 'Prenom Valide' ;
+ 
 }
 else{
   firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
@@ -218,7 +218,7 @@ const valideNom1 = function(inputNom){
 let testNom1 = RegExpNomCity.test(inputNom.value);
 console.log(testNom1)
 if (testNom1){
-  lastNameErrorMsg.innerHTML = 'Nom Valide' ;
+  
 }
 else{
   lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ' ;
@@ -239,7 +239,7 @@ const valideAddress = function(inputAddress){
 let testAddress = RegExpAddress.test(inputAddress.value);
 console.log(testAddress)
 if (testAddress){
-  addressErrorMsg.innerHTML = 'Addresse Valide' ;
+  
 }
 else{
   addressErrorMsg.innerHTML = 'Addresse non valide' ;
@@ -260,7 +260,7 @@ const validecity = function(inputcity){
 let testcity = RegExpAddress.test(inputcity.value);
 console.log(testcity)
 if (testcity){
-  cityErrorMsg.innerHTML = 'Ville Valide' ;
+  
 }
 else{
   cityErrorMsg.innerHTML = 'Ville non valide' ;
@@ -280,14 +280,14 @@ const valideEmail = function(inputEmail){
   let testEmail = RegExpEmailValide.test(inputEmail.value);
 console.log(testEmail)
 if (testEmail){
-  emailErrorMsg.innerHTML = 'Adresse Valide' ;
+  
 }
 else{
   emailErrorMsg.innerHTML = 'Adresse non Valide' ;
 }
 };
 
-console.log(valideNom)
+
                                                              //   Envoi du formulaire à l'api
   function sendForm(ProduitsValide, contact){
     let products = [];
@@ -310,7 +310,7 @@ console.log(valideNom)
 }
 
 
-function validateForm(ProduitsValide){
+//function validateForm(ProduitsValide){
   const buttonValidate = document.getElementById("order");
 
   buttonValidate.addEventListener('click', event => {
@@ -328,8 +328,13 @@ function validateForm(ProduitsValide){
       city : ville,
       email : mail,
   }
+  console.log(firstNameErrorMsg)
+console.log(lastNameErrorMsg)
+console.log(addressErrorMsg)
+console.log(cityErrorMsg)
+console.log(emailErrorMsg)
 
-if (valideNom & valideNom1 & validecity & valideAddress & valideEmail == true && ProduitsValide.length<=1){
+if (valideAddress, valideEmail , valideNom, valideNom1, validecity = true && buttonValidation < 0 && ProduitsValide.length<=1){
   sendForm(ProduitsValide, contact)
   console.log("commande ok")
 }else{
@@ -340,11 +345,11 @@ if (valideNom & valideNom1 & validecity & valideAddress & valideEmail == true &&
 }
 
 
-  )}
+  )//}
 
 
 
 
 prixToltal(ProduitsValide)
 quantiteArticleTotal(ProduitsValide)
-validateForm(ProduitsValide)
+//validateForm(ProduitsValide)
