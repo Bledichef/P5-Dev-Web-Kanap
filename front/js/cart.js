@@ -282,7 +282,7 @@ console.log(testEmail)
 if (testEmail){
   emailVerif = 1
 }
-else{
+else{  
   emailErrorMsg.innerHTML = 'Adresse non Valide' ;
 }
 };
@@ -304,9 +304,11 @@ else{
     })
     .then(response => response.json())
     .then(data => {
+      console.log(data)
         window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
     })
     .catch(e => console.log("il y a une erreur sur la page cart de type :" + e));   
+    console.log(data)
 }
 
 
@@ -332,9 +334,11 @@ else{
 console.log(lastNameErrorMsg)
 console.log(addressErrorMsg)
 console.log(cityErrorMsg)
-console.log(emailVerif)
-
-if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom =1)&& (verifPrenom = 1)&& ProduitsValide.length >= 1 ){
+console.log(prenom)
+if ( (prenom,nom,adresse,ville,mail<1)   ){
+  alert('veuillez remplir le formulaire')
+}
+else if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom =1)&& (verifPrenom = 1)){
   sendForm(ProduitsValide, contact)
   console.log("commande ok")
 }else{
@@ -346,7 +350,6 @@ if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom =1)&&
 
 
   )//}
-
 
 
 
