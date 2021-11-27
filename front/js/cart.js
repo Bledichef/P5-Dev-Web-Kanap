@@ -305,7 +305,7 @@ else{
     .then(response => response.json())
     .then(data => {
       console.log(data)
-        window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
+      //  window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
     })
     .catch(e => console.log("il y a une erreur sur la page cart de type :" + e));   
     console.log(data)
