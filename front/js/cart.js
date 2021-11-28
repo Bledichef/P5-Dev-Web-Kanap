@@ -1,5 +1,5 @@
 let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) ;
-
+console.log(ProduitsValide)
 ////////////////////////////// Affichage des elements dans le panier 
 
 if (ProduitsValide ===null || ProduitsValide ==0) {
