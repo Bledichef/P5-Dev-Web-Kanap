@@ -65,7 +65,7 @@ button.addEventListener("click", function() {
   
   console.log(id);
 
-//let ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produit")) || [];
+
 let ProduitInLocalStorage = [];
 
 console.log(ProduitInLocalStorage)
@@ -78,31 +78,19 @@ const DejaPresent = ProduitInLocalStorage.filter(product => product.ColorChoisie
   console.log(DejaPresent)
   console.log(id)
   console.log(ProduitsChoisie.ColorChoisie)
-   console.log(ProduitInLocalStorage) 
-  if (DejaPresent.length){
+  console.log(ProduitInLocalStorage) 
+   if (DejaPresent.length){
       let Total =  ProduitsChoisie.quantite+ DejaPresent[0].quantite ;
-      console.log(DejaPresent[0].quantite);
-      
-       console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
-      console.log(DejaPresent[0])
-  const IndexDejaPresent = ProduitInLocalStorage.indexOf(DejaPresent[0])
+  console.log(DejaPresent[0].quantite);
+  console.log("Ce produit est deja de votre panier il y en a maintenant  : ", Total);
+  console.log(DejaPresent[0])
+      const IndexDejaPresent = ProduitInLocalStorage.indexOf(DejaPresent[0])
   console.log(IndexDejaPresent)
    ProduitInLocalStorage[IndexDejaPresent].quantite = Total;
  
-       /*   for (let Produits of ProduitInLocalStorage){
-            if (Produits.colorChoisie === ProduitsChoisie.ColorChoisie && Produits.idChoisie === ProduitsChoisie.idChoisie){
-        Produits.quantite = Total;
-      console.log(Produit);    
-    //  ProduitInLocalStorage.push(produitsChoisie ) ;        
-     // localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
-         
-  }
- }*/
-
      } else{
       ProduitInLocalStorage.push(ProduitsChoisie);
-    /*  ProduitInLocalStorage.push(ProduitsChoisie) ;                   // On envoie les elements voulu dans le localStorage 
-     localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));*/
+
   }
   localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
  
@@ -113,7 +101,7 @@ else{
   localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));         // on transforme en format Json 
   console.log(ProduitInLocalStorage);
 }
-//localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+
 console.log("produit ajouté => ",ProduitsChoisie)
 
   })

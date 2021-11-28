@@ -1,29 +1,18 @@
 let ProduitsValide = JSON.parse(localStorage.getItem("Produits")) ;
-  
 
-
-////////////////////////////// Visibilité des elements dans le panier 
-
-
-
+////////////////////////////// Affichage des elements dans le panier 
 
 if (ProduitsValide ===null || ProduitsValide ==0) {
   document.getElementById("cart__items").innerHTML +=`
-  <div class="cart__item__img">
-  <p> Votre panier est vide </p>
-  </div>`
-
-
-}else { 
-  
-
-   
+   <div class="cart__item__img">
+    <p> Votre panier est vide </p>
+    </div>`
+}else {      
   for (i=0; i < ProduitsValide.length; i++  ){
   
    document.getElementById("cart__items").innerHTML +=`    
   
     
-
       <article class="cart__item" data-id=${ProduitsValide[i].idChoisie} data-color="${ProduitsValide[i].ColorChoisie}">
     <div class="cart__item__img">
       <img src=${ProduitsValide[i].imageChoisie} alt=${ProduitsValide[i].AltTxtChoisie}>
@@ -46,22 +35,17 @@ if (ProduitsValide ===null || ProduitsValide ==0) {
     </div>
   </article> 
     `
-
   }
-  
-
-
-  
+    
                                          // QUANTITE TOTAL DANS LE PANIER 
-
        
    function quantiteArticleTotal(ProduitsValide){
   
   const arrayQuantity = [];
    for (let sofa of ProduitsValide){
     arrayQuantity.push(sofa.quantite)
-    const reducer = (previousValue, currentValue) => previousValue + currentValue;
-    const totalQuantity = arrayQuantity.reduce(reducer)
+     const reducer = (previousValue, currentValue) => previousValue + currentValue;
+     const totalQuantity = arrayQuantity.reduce(reducer)
     document.getElementById("totalQuantity").innerHTML = totalQuantity;
     
 }
@@ -74,16 +58,16 @@ if(arrayQuantity.length === 0){
 }
 ///////////////////////////////////// Prix total
 
-function prixToltal(ProduitsValide) {
-let totalPriceQuantity = "";
-let arrayPrice = [];
+ function prixToltal(ProduitsValide) {
+  let totalPriceQuantity = "";
+  let arrayPrice = [];
 
 for (let sofa of ProduitsValide){ 
     totalPriceQuantity = sofa.PrixChoisie * sofa.quantite
-    arrayPrice.push(totalPriceQuantity)
-    const reducer = (previousValue, currentValue) => previousValue + currentValue;
-    const totalPrice = arrayPrice.reduce(reducer);
-    document.getElementById("totalPrice").innerHTML = totalPrice
+     arrayPrice.push(totalPriceQuantity)
+      const reducer = (previousValue, currentValue) => previousValue + currentValue;
+      const totalPrice = arrayPrice.reduce(reducer);
+       document.getElementById("totalPrice").innerHTML = totalPrice
 }
 if(arrayPrice.length === 0){
     totalPriceQuantity = "";
@@ -185,8 +169,8 @@ const buttonValidation = document.getElementById("order");
                      // CONDITION PRENOM
 let verifPrenom = 0
 let form1 = document.querySelector('#firstName')
-console.log(form1)
-form1.addEventListener('change', function(){
+ console.log(form1)
+  form1.addEventListener('change', function(){
   valideNom(this)
 });
 const valideNom = function(inputNom){
@@ -339,10 +323,10 @@ else{
   }
   console.log(contact)
   console.log(firstNameErrorMsg)
-console.log(lastNameErrorMsg)
-console.log(addressErrorMsg)
-console.log(cityErrorMsg)
-console.log(prenom)
+  console.log(lastNameErrorMsg)
+  console.log(addressErrorMsg)
+  console.log(cityErrorMsg)
+  console.log(prenom)
 if ( (prenom,nom,adresse,ville,mail<1)   ){
   alert('veuillez remplir le formulaire')
   console.log("commande ok")
