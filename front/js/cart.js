@@ -292,11 +292,17 @@ else{
   function sendForm(ProduitsValide, contact){
     let products = [];
 
-    for (let sofa of ProduitsValide){
-        let productId = sofa.idChoisie;
+   /*for (let sofa of ProduitsValide){
+        let productId = ProduitsValide.idChoisie;
         products.push(productId)
+    }*/
+    for (let i=0; i<ProduitsValide; i++){
+      let productId = ProduitsValide.idChoisie;
+        products.push(productId)
+    
     }
- 
+    console.log(ProduitsValide)
+    console.log(contact)
     fetch("http://localhost:3000/api/products/order", {
         method : "POST",
         headers : {"Content-Type" : "application/json"},
@@ -305,10 +311,11 @@ else{
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      //  window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
+        window.location = `confirmation.html?orderId=${data.orderId}` // redirection vers page confirmation
     })
     .catch(e => console.log("il y a une erreur sur la page cart de type :" + e));   
-    console.log(data)
+   
+    console.log(products)
 }
 
 
@@ -330,6 +337,7 @@ else{
       city : ville,
       email : mail,
   }
+  console.log(contact)
   console.log(firstNameErrorMsg)
 console.log(lastNameErrorMsg)
 console.log(addressErrorMsg)
@@ -337,6 +345,7 @@ console.log(cityErrorMsg)
 console.log(prenom)
 if ( (prenom,nom,adresse,ville,mail<1)   ){
   alert('veuillez remplir le formulaire')
+  console.log("commande ok")
 }
 else if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom =1)&& (verifPrenom = 1)){
   sendForm(ProduitsValide, contact)
@@ -350,6 +359,8 @@ else if ( (emailVerif = 1) && (villeVerif = 1) && (verifAdresse =1)&& (verifNom 
 
 
   )//}
+
+
 
 
 
