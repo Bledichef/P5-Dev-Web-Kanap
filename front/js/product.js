@@ -79,7 +79,7 @@ else{
 }
 
 console.log("produit ajouté => ",ProduitsChoisie)
-
+alert('Votre produit est ajouté au panier.') 
   })
 
   })
