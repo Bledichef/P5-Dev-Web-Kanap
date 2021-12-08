@@ -1,5 +1,5 @@
 let urlKanap = "http://localhost:3000/api/products";
-console.log(urlKanap)
+//console.log(urlKanap)
 fetch (urlKanap)
 .then( response =>response.json())
 .then(data=>{
