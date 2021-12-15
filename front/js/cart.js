@@ -252,11 +252,6 @@ const valideEmail = function (inputEmail) {
 //   Envoi du formulaire à l'api
 function sendForm(ProduitsValide, contact) {
   let products = [];
-
-  /*for (let sofa of ProduitsValide){
-        let productId = ProduitsValide.idChoisie;
-        products.push(productId)
-    }*/
   for (let i = 0; i < ProduitsValide; i++) {
     let productId = ProduitsValide.idChoisie;
     products.push(productId);

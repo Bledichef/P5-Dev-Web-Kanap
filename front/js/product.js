@@ -16,13 +16,13 @@ fetch(UrlProduct) // Recevoir les données du canapé
     photo.appendChild(baliseImg); // Ajoute l'image dans le Html
 
     let Nom = document.querySelector("#title"); // Recupere id Title
-    Nom.innerHTML = data.name; // Ajoute le nom du Canape dans Title
+    Nom.innerText = data.name; // Ajoute le nom du Canape dans Title
 
     let Prix = document.querySelector("#price"); // Recupere id Price
-    Prix.innerHTML = data.price; // Ajoute le Prix
+    Prix.innerText = data.price; // Ajoute le Prix
 
     let Texte = document.querySelector("#description"); // Recupere le id descpription
-    Texte.innerHTML = data.description; // Ajoute la description produit sur la page
+    Texte.innerText = data.description; // Ajoute la description produit sur la page
 
     let PlaceColors = document.querySelector("select"); //Recupere le id select
     for (i = 0; i < data.colors.length; i++) {
@@ -32,7 +32,7 @@ fetch(UrlProduct) // Recevoir les données du canapé
       option.textContent = data.colors[i]; // ajoute le texte de la couleur concernée
       PlaceColors.appendChild(option); // ajoute la balise option dans PlaceColors
     }
-
+    console.log(PlaceColors);
     const button = document.querySelector("#addToCart");
     button.addEventListener("click", function () {
       console.log(data.name);
@@ -48,42 +48,62 @@ fetch(UrlProduct) // Recevoir les données du canapé
 
       let ProduitInLocalStorage = [];
 
-      if (localStorage.getItem("Produits")) {
-        console.log(localStorage);
-        ProduitInLocalStorage = JSON.parse(localStorage.getItem("Produits"));
-        const DejaPresent = ProduitInLocalStorage.filter(
-          (product) =>
-            product.ColorChoisie === ProduitsChoisie.ColorChoisie &&
-            product.idChoisie === ProduitsChoisie.idChoisie
-        );
-        console.log(DejaPresent.length);
-        console.log(ProduitsChoisie.ColorChoisie);
-        console.log(ProduitInLocalStorage);
-        if (DejaPresent.length) {
-          let Total = ProduitsChoisie.quantite + DejaPresent[0].quantite;
-          console.log(DejaPresent[0].quantite);
-          console.log(
-            "Ce produit est deja de votre panier il y en a maintenant  : ",
-            Total
-          );
-          console.log(DejaPresent[0]);
-          const IndexDejaPresent = ProduitInLocalStorage.indexOf(
-            DejaPresent[0]
-          );
-          console.log(IndexDejaPresent);
-          ProduitInLocalStorage[IndexDejaPresent].quantite = Total;
-        } else {
-          ProduitInLocalStorage.push(ProduitsChoisie);
-        }
-        localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage));
+      if (ProduitsChoisie.ColorChoisie < 1) {
+        alert("Choisissez une couleur ");
       } else {
-        console.log(ProduitsChoisie);
-        ProduitInLocalStorage.push(ProduitsChoisie); // On envoie les elements voulu dans le localStorage
-        localStorage.setItem("Produits", JSON.stringify(ProduitInLocalStorage)); // on transforme en format Json
-        console.log(ProduitInLocalStorage);
-      }
+        if (ProduitsChoisie.quantite < 1) {
+          alert("Choisissez une quantitée entre 1 et 100 ");
+        } else {
+          if (ProduitsChoisie.quantite > 100) {
+            alert("Choisissez une quantitée entre 1 et 100 ");
+          } else {
+            if (localStorage.getItem("Produits")) {
+              console.log(localStorage);
+              ProduitInLocalStorage = JSON.parse(
+                localStorage.getItem("Produits")
+              );
+              const DejaPresent = ProduitInLocalStorage.filter(
+                (product) =>
+                  product.ColorChoisie === ProduitsChoisie.ColorChoisie &&
+                  product.idChoisie === ProduitsChoisie.idChoisie
+              );
+              console.log(DejaPresent.length);
+              console.log(ProduitsChoisie.ColorChoisie);
+              console.log(ProduitInLocalStorage);
+              if (DejaPresent.length) {
+                let Total = ProduitsChoisie.quantite + DejaPresent[0].quantite;
+                console.log(DejaPresent[0].quantite);
+                console.log(
+                  "Ce produit est deja de votre panier il y en a maintenant  : ",
+                  Total
+                );
+                console.log(DejaPresent[0]);
+                const IndexDejaPresent = ProduitInLocalStorage.indexOf(
+                  DejaPresent[0]
+                );
+                console.log(IndexDejaPresent);
+                ProduitInLocalStorage[IndexDejaPresent].quantite = Total;
+              } else {
+                ProduitInLocalStorage.push(ProduitsChoisie);
+              }
+              localStorage.setItem(
+                "Produits",
+                JSON.stringify(ProduitInLocalStorage)
+              );
+            } else {
+              console.log(ProduitsChoisie);
+              ProduitInLocalStorage.push(ProduitsChoisie); // On envoie les elements voulu dans le localStorage
+              localStorage.setItem(
+                "Produits",
+                JSON.stringify(ProduitInLocalStorage)
+              ); // on transforme en format Json
+              console.log(ProduitInLocalStorage);
+            }
 
-      console.log("produit ajouté => ", ProduitsChoisie);
-      alert("Votre produit est ajouté au panier.");
+            console.log("produit ajouté => ", ProduitsChoisie);
+            alert("Votre produit est ajouté au panier.");
+          }
+        }
+      }
     });
   });
