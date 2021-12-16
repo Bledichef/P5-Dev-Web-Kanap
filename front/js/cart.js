@@ -3,13 +3,13 @@ console.log(ProduitsValide);
 ////////////////////////////// Affichage des elements dans le panier
 
 if (ProduitsValide === null || ProduitsValide == 0) {
-  document.getElementById("cart__items").innerHTML += `
+  document.getElementById("cart__items").innerText += `
    <div class="cart__item__img">
     <p> Votre panier est vide </p>
     </div>`;
 } else {
   for (i = 0; i < ProduitsValide.length; i++) {
-    document.getElementById("cart__items").innerHTML += `    
+    document.getElementById("cart__items").innerText += `   
   
     
       <article class="cart__item" data-id=${ProduitsValide[i].idChoisie} data-color="${ProduitsValide[i].ColorChoisie}">
@@ -35,9 +35,7 @@ if (ProduitsValide === null || ProduitsValide == 0) {
   </article> 
     `;
   }
-
   // QUANTITE TOTAL DANS LE PANIER
-
   function quantiteArticleTotal(ProduitsValide) {
     const arrayQuantity = [];
     for (let sofa of ProduitsValide) {
@@ -45,39 +43,34 @@ if (ProduitsValide === null || ProduitsValide == 0) {
       const reducer = (previousValue, currentValue) =>
         previousValue + currentValue;
       const totalQuantity = arrayQuantity.reduce(reducer);
-      document.getElementById("totalQuantity").innerHTML = totalQuantity;
+      document.getElementById("totalQuantity").innerText = totalQuantity;
     }
 
     if (arrayQuantity.length === 0) {
-      document.querySelector("h1").innerHTML = "Panier vide";
+      document.querySelector("h1").innerText = "Panier vide";
       totalQuantity = "";
-      document.getElementById("totalQuantity").innerHTML = totalQuantity;
+      document.getElementById("totalQuantity").innerText = totalQuantity;
     }
   }
   ///////////////////////////////////// Prix total
-
   function prixToltal(ProduitsValide) {
     let totalPriceQuantity = "";
     let arrayPrice = [];
-
     for (let sofa of ProduitsValide) {
       totalPriceQuantity = sofa.PrixChoisie * sofa.quantite;
       arrayPrice.push(totalPriceQuantity);
       const reducer = (previousValue, currentValue) =>
         previousValue + currentValue;
       const totalPrice = arrayPrice.reduce(reducer);
-      document.getElementById("totalPrice").innerHTML = totalPrice;
+      document.getElementById("totalPrice").innerText = totalPrice;
     }
     if (arrayPrice.length === 0) {
       totalPriceQuantity = "";
-      document.getElementById("totalPrice").innerHTML = totalPriceQuantity;
+      document.getElementById("totalPrice").innerText = totalPriceQuantity;
     }
   }
-
   //////////////////////////////////////// DELETE ARTICLE
-
   const Delete = document.querySelectorAll(".deleteItem");
-
   Delete.forEach((tag) => {
     const tagClosest = tag.closest("article");
     console.log(tagClosest);
@@ -111,11 +104,8 @@ if (ProduitsValide === null || ProduitsValide == 0) {
       quantiteArticleTotal(ProduitsValide);
     });
   });
-
   ///////////////////////////////////////////////////////////////////////// MODIF QUANTITY
-
   const tagQuantity = document.querySelectorAll(".itemQuantity");
-
   tagQuantity.forEach((tag) => {
     const tagClosest = tag.closest("article");
     let newQuantity = "";
@@ -146,9 +136,7 @@ if (ProduitsValide === null || ProduitsValide == 0) {
     });
   });
 }
-
 //  CONDITIONS FORMULAIRE
-
 const firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
 const lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
 const addressErrorMsg = document.getElementById("addressErrorMsg");
@@ -156,110 +144,9 @@ const cityErrorMsg = document.getElementById("cityErrorMsg");
 const emailErrorMsg = document.getElementById("emailErrorMsg");
 const buttonValidation = document.getElementById("order");
 
-// CONDITION PRENOM
-let verifPrenom = 0;
-let form1 = document.querySelector("#firstName");
-console.log(form1);
-form1.addEventListener("change", function () {
-  valideNom(this);
-});
-const valideNom = function (inputNom) {
-  let RegExpNomCity = new RegExp(/^[a-zA-ZÀ-ÿ_-]{2,60}$/);
-
-  let testNom = RegExpNomCity.test(inputNom.value);
-  console.log(testNom);
-  if (testNom) {
-    verifPrenom = 1;
-  } else {
-    firstNameErrorMsg.innerHTML = "Veuillez renseigner ce champ correctement ";
-  }
-};
-// CONDITION NOM
-let verifNom = 0;
-let form2 = document.querySelector("#lastName");
-console.log(form2);
-form2.addEventListener("change", function () {
-  valideNom1(this);
-});
-const valideNom1 = function (inputNom) {
-  let RegExpNomCity = new RegExp(/^[a-zA-ZÀ-ÿ_-]{2,60}$/);
-
-  let testNom1 = RegExpNomCity.test(inputNom.value);
-  console.log(testNom1);
-  if (testNom1) {
-    let verifNom = 1;
-  } else {
-    lastNameErrorMsg.innerHTML = "Veuillez renseigner ce champ";
-  }
-};
-// CONDITION ADRESSE
-let verifAdresse = 0;
-let form3 = document.querySelector("#address");
-console.log(form3);
-form3.addEventListener("change", function () {
-  valideAddress(this);
-});
-const valideAddress = function (inputAddress) {
-  let RegExpAddress = new RegExp(/^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/);
-
-  let testAddress = RegExpAddress.test(inputAddress.value);
-  console.log(testAddress);
-  if (testAddress) {
-    verifAdresse = 1;
-  } else {
-    addressErrorMsg.innerHTML = "Addresse non valide";
-  }
-};
-// CONDITION VILLE
-let villeVerif = 0;
-let form4 = document.querySelector("#city");
-console.log(form4);
-form4.addEventListener("change", function () {
-  validecity(this);
-});
-const validecity = function (inputcity) {
-  let RegExpAddress = new RegExp(/^[a-zA-ZÀ-ÿ_-]{2,60}$/);
-
-  let testcity = RegExpAddress.test(inputcity.value);
-  console.log(testcity);
-  if (testcity) {
-    villeVerif = 1;
-  } else {
-    cityErrorMsg.innerHTML = "Ville non valide";
-  }
-};
-// CONDITION MAIL
-
-let emailVerif = new Boolean(false);
-let form = document.querySelector("#email");
-console.log(form);
-form.addEventListener("change", function () {
-  valideEmail(this);
-});
-const valideEmail = function (inputEmail) {
-  let RegExpEmailValide = new RegExp(
-    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-zA-Z]{2,3}$",
-    "g"
-  );
-  let testEmail = RegExpEmailValide.test(inputEmail.value);
-  console.log(testEmail);
-  console.log(emailVerif);
-  if (testEmail) {
-    let emailVerif = Boolean(true);
-    console.log(emailVerif);
-  } else {
-    emailErrorMsg.innerHTML = "Adresse e-mail non Valide";
-  }
-};
-
 //   Envoi du formulaire à l'api
 function sendForm(ProduitsValide, contact) {
   let products = [];
-
-  /*for (let sofa of ProduitsValide){
-        let productId = ProduitsValide.idChoisie;
-        products.push(productId)
-    }*/
   for (let i = 0; i < ProduitsValide; i++) {
     let productId = ProduitsValide.idChoisie;
     products.push(productId);
@@ -282,10 +169,7 @@ function sendForm(ProduitsValide, contact) {
 
   console.log(products);
 }
-
-//function validateForm(ProduitsValide){
 const buttonValidate = document.getElementById("order");
-
 const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
 const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
 const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
@@ -303,7 +187,6 @@ buttonValidate.addEventListener("click", (event) => {
   verifyForm(adresse, addressErrorMsg, regexAddress);
   verifyForm(ville, cityErrorMsg, regexNameCity);
   verifyForm(mail, emailErrorMsg, regexEmail);
-
   const contact = {
     firstName: prenom,
     lastName: nom,
@@ -311,29 +194,11 @@ buttonValidate.addEventListener("click", (event) => {
     city: ville,
     email: mail,
   };
-  console.log(valideEmail);
-  console.log(emailVerif);
+
   console.log(lastNameErrorMsg);
   console.log(addressErrorMsg);
   console.log(cityErrorMsg);
   console.log(prenom);
-  /*if ((prenom < 1, nom < 1, adresse < 1, ville < 1, mail < 1)) {
-    alert("veuillez remplir le formulaire");
-    console.log("commande ok");
-  } else if (
-    (emailVerif = true) /* &&
-    (villeVerif = 1) &&
-    (verifAdresse = 1) &&
-    (verifNom = 1) &&
-    (verifPrenom = 1)*/
-  /*) {
-    sendForm(ProduitsValide, contact);
-    console.log("commande ok");
-  } else {
-    console.log("erreur sur le formulaire");
-    alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
-  }
-}); //}*/
   if (
     verifyForm(prenom, firstNameErrorMsg, regexNameCity) &&
     verifyForm(nom, lastNameErrorMsg, regexNameCity) &&
@@ -342,28 +207,28 @@ buttonValidate.addEventListener("click", (event) => {
     verifyForm(mail, emailErrorMsg, regexEmail) &&
     ProduitsValide.length >= 1
   ) {
-    sendForm(productInStorage, contact);
+    sendForm(ProduitsValide, contact);
   } else {
-    console.log("le formulaire n'est pas conforme");
-    alert("Il y a une erreur sur la page. Votre commande n'est pas validée");
+    console.log("erreur sur le formulaire");
+    alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
   }
 });
+// Fonction qui verifie la présence de données dans les inputs et valide suivant les regexp
 function verifyForm(elementContact, elementError, elementRegex) {
   if (elementContact.length === 0) {
     // si le champ de l'input est vide
-    elementError.innerHTML = "Veuillez renseigner ce champ";
+    elementError.innerText = "Veuillez renseigner ce champ";
     return false;
   } else if (!elementRegex.test(elementContact)) {
     // si champ rempli mais regex non valide
-    elementError.innerHTML = "Format incorrect";
+    elementError.innerText = "Format incorrect";
     return false;
   } else {
     // champ ok
-    elementError.innerHTML = "";
+    elementError.innerText = "";
     return true;
   }
 }
 
 prixToltal(ProduitsValide);
 quantiteArticleTotal(ProduitsValide);
-//validateForm(ProduitsValide)
