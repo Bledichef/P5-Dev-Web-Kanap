@@ -9,7 +9,7 @@ if (ProduitsValide === null || ProduitsValide == 0) {
     </div>`;
 } else {
   for (i = 0; i < ProduitsValide.length; i++) {
-    document.getElementById("cart__items").innerText += `   
+    document.getElementById("cart__items").innerHTML += `   
   
     
       <article class="cart__item" data-id=${ProduitsValide[i].idChoisie} data-color="${ProduitsValide[i].ColorChoisie}">
