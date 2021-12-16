@@ -3,7 +3,7 @@ console.log(ProduitsValide);
 ////////////////////////////// Affichage des elements dans le panier
 
 if (ProduitsValide === null || ProduitsValide == 0) {
-  document.getElementById("cart__items").innerText += `
+  document.getElementById("cart__items").innerHTML += `
    <div class="cart__item__img">
     <p> Votre panier est vide </p>
     </div>`;
