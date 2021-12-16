@@ -229,7 +229,8 @@ const validecity = function (inputcity) {
   }
 };
 // CONDITION MAIL
-let emailVerif = 0;
+
+let emailVerif = new Boolean(false);
 let form = document.querySelector("#email");
 console.log(form);
 form.addEventListener("change", function () {
@@ -242,8 +243,10 @@ const valideEmail = function (inputEmail) {
   );
   let testEmail = RegExpEmailValide.test(inputEmail.value);
   console.log(testEmail);
+  console.log(emailVerif);
   if (testEmail) {
-    emailVerif = 1;
+    let emailVerif = Boolean(true);
+    console.log(emailVerif);
   } else {
     emailErrorMsg.innerHTML = "Adresse e-mail non Valide";
   }
@@ -252,6 +255,11 @@ const valideEmail = function (inputEmail) {
 //   Envoi du formulaire à l'api
 function sendForm(ProduitsValide, contact) {
   let products = [];
+
+  /*for (let sofa of ProduitsValide){
+        let productId = ProduitsValide.idChoisie;
+        products.push(productId)
+    }*/
   for (let i = 0; i < ProduitsValide; i++) {
     let productId = ProduitsValide.idChoisie;
     products.push(productId);
@@ -278,6 +286,10 @@ function sendForm(ProduitsValide, contact) {
 //function validateForm(ProduitsValide){
 const buttonValidate = document.getElementById("order");
 
+const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
+const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
+const regexEmail = /^[^@\s]{2,30}@[^@\s]{2,30}\.[^@\s]{2,5}$/;
+
 buttonValidate.addEventListener("click", (event) => {
   event.preventDefault();
   prenom = document.querySelector("#firstName").value;
@@ -286,6 +298,12 @@ buttonValidate.addEventListener("click", (event) => {
   ville = document.querySelector("#city").value;
   mail = document.querySelector("#email").value;
 
+  verifyForm(prenom, firstNameErrorMsg, regexNameCity);
+  verifyForm(nom, lastNameErrorMsg, regexNameCity);
+  verifyForm(adresse, addressErrorMsg, regexAddress);
+  verifyForm(ville, cityErrorMsg, regexNameCity);
+  verifyForm(mail, emailErrorMsg, regexEmail);
+
   const contact = {
     firstName: prenom,
     lastName: nom,
@@ -293,29 +311,58 @@ buttonValidate.addEventListener("click", (event) => {
     city: ville,
     email: mail,
   };
-  console.log(contact);
-  console.log(firstNameErrorMsg);
+  console.log(valideEmail);
+  console.log(emailVerif);
   console.log(lastNameErrorMsg);
   console.log(addressErrorMsg);
   console.log(cityErrorMsg);
   console.log(prenom);
-  if ((prenom, nom, adresse, ville, mail < 1)) {
+  /*if ((prenom < 1, nom < 1, adresse < 1, ville < 1, mail < 1)) {
     alert("veuillez remplir le formulaire");
     console.log("commande ok");
   } else if (
-    (emailVerif = 1) &&
+    (emailVerif = true) /* &&
     (villeVerif = 1) &&
     (verifAdresse = 1) &&
     (verifNom = 1) &&
-    (verifPrenom = 1)
-  ) {
+    (verifPrenom = 1)*/
+  /*) {
     sendForm(ProduitsValide, contact);
     console.log("commande ok");
   } else {
     console.log("erreur sur le formulaire");
     alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
   }
-}); //}
+}); //}*/
+  if (
+    verifyForm(prenom, firstNameErrorMsg, regexNameCity) &&
+    verifyForm(nom, lastNameErrorMsg, regexNameCity) &&
+    verifyForm(adresse, addressErrorMsg, regexAddress) &&
+    verifyForm(ville, cityErrorMsg, regexNameCity) &&
+    verifyForm(mail, emailErrorMsg, regexEmail) &&
+    ProduitsValide.length >= 1
+  ) {
+    sendForm(productInStorage, contact);
+  } else {
+    console.log("le formulaire n'est pas conforme");
+    alert("Il y a une erreur sur la page. Votre commande n'est pas validée");
+  }
+});
+function verifyForm(elementContact, elementError, elementRegex) {
+  if (elementContact.length === 0) {
+    // si le champ de l'input est vide
+    elementError.innerHTML = "Veuillez renseigner ce champ";
+    return false;
+  } else if (!elementRegex.test(elementContact)) {
+    // si champ rempli mais regex non valide
+    elementError.innerHTML = "Format incorrect";
+    return false;
+  } else {
+    // champ ok
+    elementError.innerHTML = "";
+    return true;
+  }
+}
 
 prixToltal(ProduitsValide);
 quantiteArticleTotal(ProduitsValide);
