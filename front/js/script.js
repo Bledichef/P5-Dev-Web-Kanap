@@ -1,34 +1,40 @@
 let urlKanap = "http://localhost:3000/api/products";
+/*
+Récuperation des données de l'api 
 
+*/
 fetch(urlKanap)
   .then((response) => response.json())
   .then((data) => {
-    const baliseSection = document.createElement("section"); // créé la balise section
-    baliseSection.classList.add("items"); // ajoute à la balise section classe .items
-    baliseSection.id = "items"; // ajoute à la balise section l'id #items
+    const baliseSection = document.createElement("section");
+    baliseSection.classList.add("items");
+    baliseSection.id = "items";
     const selectDivLimitedWidthBlock = document.querySelector(
       "main .limitedWidthBlock"
-    ); // pointe sur l'élément main qui a la classe limitedWidthBlock
-    selectDivLimitedWidthBlock.appendChild(baliseSection); // ajout de la balise section comme enfant de la div class limitedWithBlock
+    );
+    selectDivLimitedWidthBlock.appendChild(baliseSection);
 
+    // pour chaque canapé dans le tableau (chaque élément dans le array)
     for (sofa of data) {
-      // pour chaque canapé dans le tableau (chaque élément dans le array)
-      const baliseA = document.createElement("a"); // création balise a
-      baliseSection.appendChild(baliseA); // ajout balise a dans balise section
-      baliseA.href = `./product.html?id=${sofa._id}`; //ajout attribut href pour envoyé sur la page produit au clique
+      /*
+           Creation des Balises A,article,img,H3 et P 
+      */
+      const baliseA = document.createElement("a");
+      baliseSection.appendChild(baliseA);
+      baliseA.href = `./product.html?id=${sofa._id}`;
 
-      const baliseArticle = document.createElement("article"); // créé balise article
-      baliseA.appendChild(baliseArticle); // ajout balise article comme enfant de balise A
+      const baliseArticle = document.createElement("article");
+      baliseA.appendChild(baliseArticle);
 
-      const baliseImg = document.createElement("img"); // créé balise img
-      baliseImg.src = sofa.imageUrl; // récupère urlimage de chaque élément
-      baliseImg.alt = sofa.altTxt; // récupère le alt
-      baliseArticle.appendChild(baliseImg); // dans balise article ajout de la balise img
+      const baliseImg = document.createElement("img");
+      baliseImg.src = sofa.imageUrl;
+      baliseImg.alt = sofa.altTxt;
+      baliseArticle.appendChild(baliseImg);
 
-      const baliseh3 = document.createElement("h3"); // créé balise h3
-      baliseh3.classList.add("productName"); // ajoute la classe .productName à la balise
-      baliseArticle.appendChild(baliseh3); // ajoute la balise h3 sur le DOM dans la balise article
-      baliseh3.innerText = sofa.name; // récupère pour chaque élément le name et l'insère dans h3
+      const baliseh3 = document.createElement("h3");
+      baliseh3.classList.add("productName");
+      baliseArticle.appendChild(baliseh3);
+      baliseh3.innerText = sofa.name;
 
       const baliseP = document.createElement("p");
       baliseP.classList.add("productDescription");

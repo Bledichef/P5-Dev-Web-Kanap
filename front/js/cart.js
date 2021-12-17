@@ -35,7 +35,11 @@ if (ProduitsValide === null || ProduitsValide == 0) {
   </article> 
     `;
   }
-  // QUANTITE TOTAL DANS LE PANIER
+  /* 
+Pour chaque canapé du LS on met dans le tableau vide la quantité choisie
+On additionne entre elles toutes les données du tableau
+On affiche dans la balise totalQuantity le résulat obtenu 
+*/
   function quantiteArticleTotal(ProduitsValide) {
     const arrayQuantity = [];
     for (let sofa of ProduitsValide) {
@@ -52,7 +56,11 @@ if (ProduitsValide === null || ProduitsValide == 0) {
       document.getElementById("totalQuantity").innerText = totalQuantity;
     }
   }
-  ///////////////////////////////////// Prix total
+  /* 
+Pour chaque canapé du LS on récupère le prix et la quantité et on les multiplie
+on met la quantité obtenue dans le tableau vide et on additionne tous les chiffres du tableau
+on affiche ds la balise totalPrice le résultat obtenu
+*/
   function prixToltal(ProduitsValide) {
     let totalPriceQuantity = "";
     let arrayPrice = [];
@@ -69,7 +77,12 @@ if (ProduitsValide === null || ProduitsValide == 0) {
       document.getElementById("totalPrice").innerText = totalPriceQuantity;
     }
   }
-  //////////////////////////////////////// DELETE ARTICLE
+  /*
+Pour chaque balise delete,  on récupère l'id + la couleur de l'élément avec closest 
+au click sur la balise on cible le canapé à supprimer avec la double condition
+on récupère l'index ds productInStorage de ce canapé + on le supprime. 
+On envoi le nouveau ProduitsValide ds LocalStorage
+  */
   const Delete = document.querySelectorAll(".deleteItem");
   Delete.forEach((tag) => {
     const tagClosest = tag.closest("article");
@@ -97,7 +110,15 @@ if (ProduitsValide === null || ProduitsValide == 0) {
       quantiteArticleTotal(ProduitsValide);
     });
   });
-  ///////////////////////////////////////////////////////////////////////// MODIF QUANTITY
+
+  /* 
+Pour chaque balise quantity, on récupère le data-id de l'élément avec closest, et le data-color
+Au "change" sur la balise on définit la nouvelle quantité (la value du tag) et on la met ds une variable
+On cible le canapé sur lequel on modifie quantité avec la double condition
+On donne ds ProduitValidé la nouvelle valeur à quantité de ce canapé
+On envoi le nouveau ProduitValide ds LocalStorage
+*/
+
   const tagQuantity = document.querySelectorAll(".itemQuantity");
   tagQuantity.forEach((tag) => {
     const tagClosest = tag.closest("article");
@@ -130,7 +151,8 @@ const cityErrorMsg = document.getElementById("cityErrorMsg");
 const emailErrorMsg = document.getElementById("emailErrorMsg");
 const buttonValidation = document.getElementById("order");
 
-//   Envoi du formulaire à l'api
+//  fonction pour  Envoi du formulaire à l'api
+
 function sendForm(ProduitsValide, contact) {
   let products = [];
   for (let i = 0; i < ProduitsValide; i++) {
@@ -151,6 +173,14 @@ function sendForm(ProduitsValide, contact) {
       console.log("il y a une erreur sur la page cart de type :" + e)
     );
 }
+
+/* 
+Au clic : 
+Récupère les valeurs des champs des formulaires
+Appelle la fonction verifyForm avec les bons paramètres pour vérifier chaque champ et afficher les messsages d'erreur
+Créé un objet contact avec les values du formulaire
+Appelle la fonction d'envoi du formulaire si la  vérification est ok et si panier non vide
+*/
 const buttonValidate = document.getElementById("order");
 const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
 const regexAddress = /^[#.0-9a-zA-ZÀ-ÿ\s,-]{2,60}$/;
