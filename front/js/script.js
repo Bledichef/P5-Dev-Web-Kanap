@@ -1,10 +1,8 @@
 let urlKanap = "http://localhost:3000/api/products";
-//console.log(urlKanap)
+
 fetch(urlKanap)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data); //Affiche dans la console le tableau des données
-
     const baliseSection = document.createElement("section"); // créé la balise section
     baliseSection.classList.add("items"); // ajoute à la balise section classe .items
     baliseSection.id = "items"; // ajoute à la balise section l'id #items
@@ -12,7 +10,7 @@ fetch(urlKanap)
       "main .limitedWidthBlock"
     ); // pointe sur l'élément main qui a la classe limitedWidthBlock
     selectDivLimitedWidthBlock.appendChild(baliseSection); // ajout de la balise section comme enfant de la div class limitedWithBlock
-    console.log(selectDivLimitedWidthBlock);
+
     for (sofa of data) {
       // pour chaque canapé dans le tableau (chaque élément dans le array)
       const baliseA = document.createElement("a"); // création balise a

@@ -1,5 +1,5 @@
 let ProduitsValide = JSON.parse(localStorage.getItem("Produits"));
-console.log(ProduitsValide);
+
 ////////////////////////////// Affichage des elements dans le panier
 
 if (ProduitsValide === null || ProduitsValide == 0) {
@@ -73,26 +73,19 @@ if (ProduitsValide === null || ProduitsValide == 0) {
   const Delete = document.querySelectorAll(".deleteItem");
   Delete.forEach((tag) => {
     const tagClosest = tag.closest("article");
-    console.log(tagClosest);
+
     const id = tagClosest.dataset.id;
-    console.log(id);
+
     const article = tagClosest;
-    console.log(article);
+
     const color = tagClosest.dataset.color;
-    console.log(color);
 
     tag.addEventListener("click", (event) => {
       event.preventDefault();
       ProduitsValide.forEach((sofa) => {
-        console.log(sofa);
-        console.log(sofa.idChoisie);
-        console.log(sofa.ColorChoisie);
-        console.log(id);
-        console.log(color);
         if (sofa.idChoisie == id && sofa.ColorChoisie == color) {
           let index = ProduitsValide.indexOf(sofa); // récupération index du canapé
           if (confirm("Voulez vous supprimer cet article de votre panier?")) {
-            console.log(index);
             article.remove(); // supprime du DOM
             ProduitsValide.splice(index, 1); // on retire ce canapé du panier
           }
@@ -111,8 +104,7 @@ if (ProduitsValide === null || ProduitsValide == 0) {
     let newQuantity = "";
     const id = tagClosest.dataset.id;
     const color = tagClosest.dataset.color;
-    console.log(tagClosest);
-    console.log(id);
+
     tag.addEventListener("change", (event) => {
       event.preventDefault();
       newQuantity = Number(tag.value); // la nouvelle quantité est la value de la balise quantité
@@ -122,12 +114,6 @@ if (ProduitsValide === null || ProduitsValide == 0) {
         if (sofa.idChoisie == id && sofa.ColorChoisie == color) {
           sofa.quantite = newQuantity; // la quantité des produits du panier se met à jour et devient égale à la nouvelle quantité
         }
-        console.log(id);
-        console.log(sofa.idChoisie);
-        console.log(color);
-        console.log(sofa.ColorChoisie);
-        console.log(newQuantity);
-        console.log(sofa);
       });
 
       localStorage.setItem("Produits", JSON.stringify(ProduitsValide));
@@ -136,7 +122,7 @@ if (ProduitsValide === null || ProduitsValide == 0) {
     });
   });
 }
-//  CONDITIONS FORMULAIRE
+
 const firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
 const lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
 const addressErrorMsg = document.getElementById("addressErrorMsg");
@@ -151,8 +137,7 @@ function sendForm(ProduitsValide, contact) {
     let productId = ProduitsValide.idChoisie;
     products.push(productId);
   }
-  console.log(ProduitsValide);
-  console.log(contact);
+
   fetch("http://localhost:3000/api/products/order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -160,14 +145,11 @@ function sendForm(ProduitsValide, contact) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       window.location = `confirmation.html?orderId=${data.orderId}`; // redirection vers page confirmation
     })
     .catch((e) =>
       console.log("il y a une erreur sur la page cart de type :" + e)
     );
-
-  console.log(products);
 }
 const buttonValidate = document.getElementById("order");
 const regexNameCity = /^[a-zA-ZÀ-ÿ_-]{2,60}$/;
@@ -194,11 +176,6 @@ buttonValidate.addEventListener("click", (event) => {
     city: ville,
     email: mail,
   };
-
-  console.log(lastNameErrorMsg);
-  console.log(addressErrorMsg);
-  console.log(cityErrorMsg);
-  console.log(prenom);
   if (
     verifyForm(prenom, firstNameErrorMsg, regexNameCity) &&
     verifyForm(nom, lastNameErrorMsg, regexNameCity) &&
@@ -209,7 +186,6 @@ buttonValidate.addEventListener("click", (event) => {
   ) {
     sendForm(ProduitsValide, contact);
   } else {
-    console.log("erreur sur le formulaire");
     alert("verifier le formulaire, il comporte une ou plusieurs erreurs");
   }
 });

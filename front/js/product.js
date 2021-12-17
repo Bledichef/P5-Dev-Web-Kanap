@@ -1,14 +1,12 @@
 const str = window.location.href;
 var url = new URL(str);
 let id = url.searchParams.get("id"); // Recuperer l'Id du canapé
-console.log(id);
+
 let UrlProduct = `http://localhost:3000/api/products/${id}`;
-console.log(UrlProduct);
+
 fetch(UrlProduct) // Recevoir les données du canapé
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
-
     let photo = document.querySelector(".item__img");
     const baliseImg = document.createElement("img");
     baliseImg.src = data.imageUrl; // Recupere l'image dans l'api
@@ -32,10 +30,9 @@ fetch(UrlProduct) // Recevoir les données du canapé
       option.textContent = data.colors[i]; // ajoute le texte de la couleur concernée
       PlaceColors.appendChild(option); // ajoute la balise option dans PlaceColors
     }
-    console.log(PlaceColors);
+
     const button = document.querySelector("#addToCart");
     button.addEventListener("click", function () {
-      console.log(data.name);
       let ProduitsChoisie = {
         imageChoisie: data.imageUrl,
         NomChoisie: data.name,
@@ -45,7 +42,6 @@ fetch(UrlProduct) // Recevoir les données du canapé
         ColorChoisie: document.querySelector("#colors").value, // Recupere la couleur Choisie
         quantite: parseInt(document.querySelector("#quantity").value), // Recupere la quantitée Voulue
       };
-
       let ProduitInLocalStorage = [];
 
       if (ProduitsChoisie.ColorChoisie < 1) {
@@ -58,7 +54,6 @@ fetch(UrlProduct) // Recevoir les données du canapé
             alert("Choisissez une quantitée entre 1 et 100 ");
           } else {
             if (localStorage.getItem("Produits")) {
-              console.log(localStorage);
               ProduitInLocalStorage = JSON.parse(
                 localStorage.getItem("Produits")
               );
@@ -67,21 +62,19 @@ fetch(UrlProduct) // Recevoir les données du canapé
                   product.ColorChoisie === ProduitsChoisie.ColorChoisie &&
                   product.idChoisie === ProduitsChoisie.idChoisie
               );
-              console.log(DejaPresent.length);
-              console.log(ProduitsChoisie.ColorChoisie);
-              console.log(ProduitInLocalStorage);
+
               if (DejaPresent.length) {
                 let Total = ProduitsChoisie.quantite + DejaPresent[0].quantite;
-                console.log(DejaPresent[0].quantite);
+
                 console.log(
                   "Ce produit est deja de votre panier il y en a maintenant  : ",
                   Total
                 );
-                console.log(DejaPresent[0]);
+
                 const IndexDejaPresent = ProduitInLocalStorage.indexOf(
                   DejaPresent[0]
                 );
-                console.log(IndexDejaPresent);
+
                 ProduitInLocalStorage[IndexDejaPresent].quantite = Total;
               } else {
                 ProduitInLocalStorage.push(ProduitsChoisie);
@@ -91,7 +84,6 @@ fetch(UrlProduct) // Recevoir les données du canapé
                 JSON.stringify(ProduitInLocalStorage)
               );
             } else {
-              console.log(ProduitsChoisie);
               ProduitInLocalStorage.push(ProduitsChoisie); // On envoie les elements voulu dans le localStorage
               localStorage.setItem(
                 "Produits",
